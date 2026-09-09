@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>GenEd Board Exam Reviewer &middot; by Nendran Duke</title>
+<meta name="description" content="150-item General Education board exam practice test for Education Generalists (LET GenEd), by Nendran Duke." />
+<style>
+  :root{
+    --bg1:#eef2ff; --bg2:#fdf2f8; --ink:#0f172a; --muted:#64748b;
+    --brand:#4f46e5; --brand2:#7c3aed; --good:#059669; --bad:#dc2626;
+    --card:#ffffff; --line:#e2e8f0;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:linear-gradient(135deg,var(--bg1),var(--bg2));
+    min-height:100vh; color:var(--ink); line-height:1.55;
+  }
+  .wrap{max-width:960px;margin:0 auto;padding:28px 18px 80px;}
+  header.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:18px;}
+  .brand b{color:var(--brand);}
+  .brand small{display:block;color:var(--muted);font-weight:600;letter-spacing:.4px;font-size:12px;text-transform:uppercase;}
+  .badge-150{background:var(--brand);color:#fff;padding:8px 14px;border-radius:999px;font-weight:700;font-size:14px;box-shadow:0 6px 16px rgba(79,70,229,.28);}
+  /* ---------- LANDING ---------- */
+  .landing{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:30px 26px;box-shadow:0 20px 50px rgba(15,23,42,.08);}
+  .landing h1{margin:0 0 6px;font-size:30px;line-height:1.2;}
+  .landing h1 span{background:linear-gradient(90deg,var(--brand),var(--brand2));-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .authorline{color:var(--muted);margin:0 0 14px;font-size:15px;}
+  .authorline b{color:var(--ink);}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 6px;}
+  .chip{font-size:13px;font-weight:600;padding:7px 12px;border-radius:999px;border:1px solid var(--line);}
+  .facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:18px 0;}
+  .fact{background:#f8fafc;border:1px solid var(--line);border-radius:14px;padding:12px 14px;}
+  .fact .num{font-size:22px;font-weight:800;color:var(--brand);}
+  .fact .lbl{font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.3px;}
+  .instructions{background:#f8fafc;border:1px solid var(--line);border-radius:14px;padding:16px 18px;font-size:14px;color:#334155;}
+  .instructions h3{margin:0 0 8px;font-size:15px;}
+  .instructions ol{margin:0;padding-left:20px;}
+  .instructions li{margin:4px 0;}
+  .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px;}
+  .btn{border:none;cursor:pointer;font-weight:700;border-radius:12px;padding:13px 22px;font-size:15px;transition:transform .08s ease,box-shadow .12s ease;font-family:inherit;}
+  .btn:active{transform:translateY(1px);}
+  .btn-primary{background:linear-gradient(90deg,var(--brand),var(--brand2));color:#fff;box-shadow:0 10px 24px rgba(79,70,229,.32);}
+  .btn-ghost{background:#fff;color:var(--ink);border:1px solid var(--line);}
+  .btn-ghost:hover{background:#f8fafc;}
+  .btn[disabled]{opacity:.5;cursor:not-allowed;}
+  /* ---------- EXAM ---------- */
+  .exam{display:none;}
+  .toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px;}
+  .progress-wrap{flex:1;min-width:200px;}
+  .progress-info{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:6px;font-weight:600;}
+  .bar{height:10px;background:#e2e8f0;border-radius:999px;overflow:hidden;}
+  .bar>span{display:block;height:100%;background:linear-gradient(90deg,var(--brand),var(--brand2));width:0%;transition:width .25s ease;}
+  .timer{font-variant-numeric:tabular-nums;font-weight:700;color:var(--brand);font-size:15px;background:#eef2ff;padding:8px 14px;border-radius:12px;}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;box-shadow:0 14px 34px rgba(15,23,42,.06);}
+  .qmeta{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:16px;}
+  .qnum{font-weight:800;font-size:18px;color:var(--brand);}
+  .qsubject{font-size:12px;font-weight:700;padding:6px 12px;border-radius:999px;background:#eef2ff;color:var(--brand);}
+  .qtxt{font-size:19px;font-weight:600;margin:6px 0 20px;}
+  .opts{display:flex;flex-direction:column;gap:12px;}
+  .opt{display:flex;gap:12px;align-items:flex-start;border:2px solid var(--line);border-radius:14px;padding:14px 16px;cursor:pointer;background:#fff;transition:border-color .12s ease,background .12s ease;}
+  .opt:hover{border-color:#c7d2fe;background:#fafaff;}
+  .opt .key{width:28px;height:28px;flex:0 0 28px;border-radius:50%;background:#f1f5f9;color:#475569;font-weight:700;display:grid;place-items:center;font-size:13px;border:1px solid var(--line);}
+  .opt .txt{flex:1;font-size:15px;}
+  .opt.sel{border-color:var(--brand);background:#eef2ff;}
+  .opt.sel .key{background:var(--brand);color:#fff;border-color:var(--brand);}
+  .opt .check{margin-left:auto;color:var(--brand);font-weight:800;align-self:center;opacity:0;}
+  .opt.sel .check{opacity:1;}
+  .nav{display:flex;justify-content:space-between;gap:12px;margin-top:22px;}
+  .palette{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px 20px;margin-top:16px;box-shadow:0 14px 34px rgba(15,23,42,.06);}
+  .palette h3{margin:0 0 12px;font-size:15px;color:var(--muted);}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(44px,1fr));gap:8px;max-height:260px;overflow:auto;padding:2px;}
+  .cell{height:42px;border-radius:10px;font-weight:700;font-size:14px;cursor:pointer;border:1px solid var(--line);background:#fff;color:#475569;display:grid;place-items:center;transition:background .1s;}
+  .cell.done{background:#d1fae5;color:var(--good);border-color:#6ee7b7;}
+  .cell.cur{outline:3px solid var(--brand);outline-offset:1px;background:#eef2ff;color:var(--brand);}
+  .legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:12px;font-size:13px;color:var(--muted);}
+  .legend i{display:inline-block;width:14px;height:14px;border-radius:4px;margin-right:6px;vertical-align:middle;}
+  .submitrow{text-align:center;margin-top:20px;}
+  /* ---------- RESULT ---------- */
+  .result{display:none;}
+  .score-hero{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;border-radius:20px;padding:30px;text-align:center;box-shadow:0 20px 50px rgba(79,70,229,.32);}
+  .score-hero .big{font-size:56px;font-weight:900;line-height:1;}
+  .score-hero .pct{font-size:20px;font-weight:700;opacity:.92;}
+  .score-hero .rate{font-size:15px;font-weight:600;background:rgba(255,255,255,.18);display:inline-block;padding:6px 16px;border-radius:999px;margin-top:12px;}
+  .stat-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:18px 0;}
+  .stat{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;text-align:center;}
+  .stat .v{font-size:28px;font-weight:800;color:var(--ink);}
+  .stat .v.g{color:var(--good);} .stat .v.r{color:var(--bad);}
+  .stat .t{font-size:12px;color:var(--muted);font-weight:700;text-transform:uppercase;}
+  .subject-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:18px 0;}
+  .scard{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;}
+  .scard .name{font-weight:700;font-size:15px;}
+  .scard .sub{font-size:13px;color:var(--muted);margin:2px 0 10px;}
+  .mini{height:8px;background:#e2e8f0;border-radius:999px;overflow:hidden;}
+  .mini>span{display:block;height:100%;background:var(--brand);border-radius:999px;}
+  .note{font-size:13px;color:#475569;background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:14px 0;text-align:left;}
+  .actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:20px;}
+  /* ---------- REVIEW ---------- */
+  .review{display:none;}
+  .filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;}
+  .fbtn{border:1px solid var(--line);background:#fff;padding:9px 16px;border-radius:999px;font-weight:700;font-size:14px;cursor:pointer;color:var(--muted);}
+  .fbtn.act{background:var(--brand);color:#fff;border-color:var(--brand);}
+  .rq{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px;margin-bottom:14px;}
+  .rq .rh{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap;}
+  .rq .tag{font-size:12px;font-weight:700;padding:4px 10px;border-radius:999px;}
+  .tag.right{background:#d1fae5;color:var(--good);}
+  .tag.wrong{background:#fee2e2;color:var(--bad);}
+  .tag.skip{background:#f1f5f9;color:var(--muted);}
+  .rq .subject{font-size:12px;color:var(--muted);font-weight:600;}
+  .rq .q{font-weight:600;font-size:16px;margin:6px 0 12px;}
+  .rline{display:flex;gap:10px;align-items:flex-start;margin:6px 0;font-size:14px;}
+  .rline .mark{font-weight:800;}
+  .rline.correct .mark{color:var(--good);}
+  .rline.wrong .mark{color:var(--bad);}
+  .rline.sel{background:#eef2ff;padding:6px 10px;border-radius:8px;}
+  .exp{background:#f8fafc;border-left:4px solid var(--brand);padding:10px 14px;border-radius:0 10px 10px 0;font-size:13.5px;color:#334155;margin-top:10px;}
+  .exp b{color:var(--brand);}
+  @media(max-width:560px){
+    .landing h1{font-size:24px;}
+    .qtxt{font-size:17px;}
+    .card,.landing{padding:18px;}
+    .nav{flex-direction:column-reverse;}
+    .nav .btn{width:100%;}
+  }
+  .hidden{display:none!important;}
+  .center{text-align:center;}
+  footer{text-align:center;color:var(--muted);font-size:13px;margin-top:40px;}
+  /* ---------- MODAL ---------- */
+  .modal-overlay{position:fixed;inset:0;background:rgba(15,23,42,.55);display:flex;align-items:center;justify-content:center;z-index:100;padding:20px;}
+  .modal{background:#fff;border-radius:18px;max-width:420px;width:100%;padding:24px;box-shadow:0 30px 70px rgba(15,23,42,.35);animation:pop .18s ease;}
+  @keyframes pop{from{transform:scale(.94);opacity:0;}to{transform:scale(1);opacity:1;}}
+  .modal h3{margin:0 0 10px;font-size:19px;}
+  .modal p{margin:0 0 20px;color:#475569;font-size:15px;}
+  .modal .mrow{display:flex;gap:10px;justify-content:flex-end;}
+  .modal .btn{padding:11px 18px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <b>NENDRAN DUKE</b>
+      <small>GenEd Reviewer Studio</small>
+    </div>
+    <div class="badge-150">150-Item Board Exam</div>
+  </header>
+
+  <!-- ============ LANDING ============ -->
+  <section class="landing" id="landing">
+    <h1>General Education <span>Board Exam</span> Reviewer</h1>
+    <p class="authorline">Practice test for <b>Education Generalists</b> &middot; by <b>Nendran Duke</b></p>
+    <div class="chips">
+      <div class="chip" style="color:#4f46e5;background:#e0e7ff;border-color:#4f46e5"><strong>English</strong> &middot; 30 items</div>
+      <div class="chip" style="color:#b45309;background:#fef3c7;border-color:#b45309"><strong>Filipino</strong> &middot; 25 items</div>
+      <div class="chip" style="color:#0f766e;background:#ccfbf1;border-color:#0f766e"><strong>Mathematics</strong> &middot; 25 items</div>
+      <div class="chip" style="color:#7c3aed;background:#ede9fe;border-color:#7c3aed"><strong>Science</strong> &middot; 35 items</div>
+      <div class="chip" style="color:#be123c;background:#ffe4e6;border-color:#be123c"><strong>Social Science</strong> &middot; 35 items</div>
+    </div>
+    <div class="facts">
+      <div class="fact"><div class="num">150</div><div class="lbl">Total Items</div></div>
+      <div class="fact"><div class="num">4</div><div class="lbl">Choices / Item</div></div>
+      <div class="fact"><div class="num">5</div><div class="lbl">Subject Areas</div></div>
+      <div class="fact"><div class="num">0</div><div class="lbl">Time Limit</div></div>
+    </div>
+    <div class="instructions">
+      <h3>How to take this exam</h3>
+      <ol>
+        <li>Read each question and choose <b>one</b> best answer.</li>
+        <li>Use <b>Next / Previous</b> or click a number in the palette to move around.</li>
+        <li>You may skip items and return to them at any time.</li>
+        <li>When you have answered every item, press <b>Submit</b> to see your score.</li>
+      </ol>
+    </div>
+    <div class="cta">
+      <button class="btn btn-primary" onclick="startExam()">Start Exam &#10132;</button>
+      <button class="btn btn-ghost" onclick="window.print()">Print / Save PDF</button>
+    </div>
+  </section>
+
+  <!-- ============ EXAM ============ -->
+  <section class="exam" id="exam">
+    <div class="toolbar">
+      <div class="progress-wrap">
+        <div class="progress-info"><span id="progText">0 of 150 answered</span><span id="progPct">0%</span></div>
+        <div class="bar"><span id="progBar"></span></div>
+      </div>
+      <div class="timer" id="timer">00:00</div>
+    </div>
+
+    <div class="card">
+      <div class="qmeta">
+        <div class="qnum">Question <span id="qnum">1</span> / 150</div>
+        <div class="qsubject" id="qsubject">English</div>
+      </div>
+      <div class="qtxt" id="qtxt"></div>
+      <div class="opts" id="opts"></div>
+      <div class="nav">
+        <button class="btn btn-ghost" id="btnPrev" onclick="prevQ()">&larr; Previous</button>
+        <button class="btn btn-primary" id="btnNext" onclick="nextQ()">Next &rarr;</button>
+      </div>
+    </div>
+
+    <div class="palette">
+      <h3>Question Palette</h3>
+      <div class="grid" id="palette"></div>
+      <div class="legend">
+        <span><i style="background:#fff;border:1px solid var(--line)"></i> Unanswered</span>
+        <span><i style="background:#d1fae5"></i> Answered</span>
+        <span><i style="background:#eef2ff;border:3px solid var(--brand);outline:1px solid var(--brand)"></i> Current</span>
+      </div>
+    </div>
+
+    <div class="submitrow">
+      <button class="btn btn-primary" style="padding:14px 34px;font-size:17px;" onclick="confirmSubmit()">Submit Exam</button>
+    </div>
+  </section>
+
+  <!-- ============ RESULT ============ -->
+  <section class="result" id="result">
+    <div class="score-hero">
+      <div style="font-size:14px;font-weight:700;letter-spacing:1px;text-transform:uppercase;opacity:.9;">Your Score</div>
+      <div class="big" id="scoreBig">0</div>
+      <div class="pct" id="scorePct">0%</div>
+      <div class="rate" id="rate">—</div>
+    </div>
+    <div class="stat-cards">
+      <div class="stat"><div class="v g" id="stCorrect">0</div><div class="t">Correct</div></div>
+      <div class="stat"><div class="v r" id="stWrong">0</div><div class="t">Wrong</div></div>
+      <div class="stat"><div class="v" id="stSkip">0</div><div class="t">Unanswered</div></div>
+      <div class="stat"><div class="v" id="stTime">0s</div><div class="t">Time</div></div>
+    </div>
+    <h3 style="font-size:17px;margin:6px 0;">Performance by Subject</h3>
+    <div class="subject-cards" id="subjectCards"></div>
+    <div class="note" id="passNote"></div>
+    <div class="actions">
+      <button class="btn btn-primary" onclick="showReview()">Review Answers</button>
+      <button class="btn btn-ghost" onclick="retake()">Retake Exam</button>
+    </div>
+    <div style="text-align:center;margin-top:20px;color:var(--muted);font-size:13px;">Prepared by <b>Nendran Duke</b> &middot; GenEd Reviewer Studio</div>
+  </section>
+
+  <!-- ============ REVIEW ============ -->
+  <section class="review" id="review">
+    <h2 style="margin:0 0 16px;">Answer Review</h2>
+    <div class="filters">
+      <button class="fbtn act" data-f="all" onclick="setFilter('all')">All (150)</button>
+      <button class="fbtn" data-f="wrong" onclick="setFilter('wrong')">Wrong</button>
+      <button class="fbtn" data-f="right" onclick="setFilter('right')">Correct</button>
+      <button class="fbtn" data-f="skip" onclick="setFilter('skip')">Unanswered</button>
+      <button class="fbtn" data-f="all" onclick="showResult()">Back to Results</button>
+    </div>
+    <div id="reviewList"></div>
+  </section>
+
+  <footer>General Education Board Exam Reviewer &middot; Built for Education Generalists &middot; by Nendran Duke</footer>
+</div>
+
+<!-- ============ MODAL ============ -->
+<div class="modal-overlay hidden" id="modal">
+  <div class="modal">
+    <h3 id="modalTitle">Are you sure?</h3>
+    <p id="modalMsg"></p>
+    <div class="mrow">
+      <button class="btn btn-ghost" id="modalNo">Cancel</button>
+      <button class="btn btn-primary" id="modalYes">Submit Exam</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const QUESTIONS = [{"id": 1, "subject": "English", "q": "Identify the part of speech of the word \"quickly\" in: \"She ran quickly.\"", "options": ["Adjective", "Adverb", "Verb", "Pronoun"], "answer": 1, "exp": "\"Quickly\" modifies the verb \"ran\" and answers how, so it is an adverb."}, {"id": 2, "subject": "English", "q": "Choose the correct verb: \"Neither the teacher nor the students ______ present.\"", "options": ["was", "were", "is", "be"], "answer": 1, "exp": "With 'neither...nor,' the verb agrees with the nearer subject, which is plural ('students'), so 'were.'"}, {"id": 3, "subject": "English", "q": "Which sentence is grammatically correct?", "options": ["Each of the boys have a book.", "Each of the boys has a book.", "Each of the boys are having books.", "Each of the boys were given books."], "answer": 1, "exp": "\"Each\" is singular and takes the singular verb \"has.\""}, {"id": 4, "subject": "English", "q": "Choose the synonym of \"ubiquitous.\"", "options": ["Rare", "Omnipresent", "Tiny", "Distant"], "answer": 1, "exp": "Ubiquitous means present everywhere, i.e., omnipresent."}, {"id": 5, "subject": "English", "q": "Choose the antonym of \"benevolent.\"", "options": ["Kind", "Generous", "Malevolent", "Gentle"], "answer": 2, "exp": "Benevolent means kindly; its opposite is malevolent (wishing harm)."}, {"id": 6, "subject": "English", "q": "What figure of speech is used in \"The wind whispered through the trees\"?", "options": ["Simile", "Personification", "Hyperbole", "Oxymoron"], "answer": 1, "exp": "Giving human characteristics (whispering) to the wind is personification."}, {"id": 7, "subject": "English", "q": "Which of the following is a collective noun?", "options": ["pencil", "team", "chair", "happiness"], "answer": 1, "exp": "\"Team\" names a group of individuals as a single unit, so it is a collective noun."}, {"id": 8, "subject": "English", "q": "What is the correct plural form of \"analysis\"?", "options": ["analysises", "analysis", "analyses", "analysi"], "answer": 2, "exp": "Words ending in -sis change to -ses in the plural (analysis → analyses)."}, {"id": 9, "subject": "English", "q": "Which sentence uses a colon correctly?", "options": ["She bought: apples, bananas, and grapes.", "She bought the following: apples, bananas, and grapes.", "The food was: delicious.", "He wanted: to go home."], "answer": 1, "exp": "A colon is used after a complete statement to introduce a list."}, {"id": 10, "subject": "English", "q": "\"The classroom was a zoo.\" is an example of ______.", "options": ["Simile", "Metaphor", "Alliteration", "Onomatopoeia"], "answer": 1, "exp": "It states the classroom IS a zoo, an implied comparison without 'like' or 'as' — a metaphor."}, {"id": 11, "subject": "English", "q": "The prefix \"anti-\" means ______.", "options": ["for", "against", "before", "under"], "answer": 1, "exp": "Anti- means against or opposed to (e.g., anti-war, antibiotic)."}, {"id": 12, "subject": "English", "q": "Which word is correctly spelled?", "options": ["recieve", "receive", "receeve", "riceive"], "answer": 1, "exp": "\"Receive\" follows the rule 'i before e except after c.'"}, {"id": 13, "subject": "English", "q": "Choose the correct pronoun: \"To ______ should I address the letter?\"", "options": ["who", "whom", "whose", "which"], "answer": 1, "exp": "The pronoun is the object of the preposition 'to,' so the objective case 'whom' is correct."}, {"id": 14, "subject": "English", "q": "Identify the gerund in: \"Swimming is my favorite activity.\"", "options": ["favorite", "activity", "Swimming", "my"], "answer": 2, "exp": "A gerund is a verb ending in -ing used as a noun; here it is the subject."}, {"id": 15, "subject": "English", "q": "Convert to passive voice: \"The boy ate the mango.\"", "options": ["The mango is eaten by the boy.", "The mango was eaten by the boy.", "The mango has eaten the boy.", "The mango ate the boy."], "answer": 1, "exp": "The object becomes the subject and the verb becomes 'was eaten,' with the agent in a 'by' phrase."}, {"id": 16, "subject": "English", "q": "Which is correct?", "options": ["There were less people today.", "There were fewer people today.", "There was less people today.", "There were lesser people today."], "answer": 1, "exp": "\"Fewer\" is used with countable nouns; \"less\" with mass nouns."}, {"id": 17, "subject": "English", "q": "Which sentence is punctuated correctly?", "options": ["The students books are on the desk.", "The student's books are on the desk.", "The students' books are on the desk.", "The students book's are on the desk."], "answer": 2, "exp": "Plural possessive ending in 's' takes an apostrophe after the s: students'."}, {"id": 18, "subject": "English", "q": "A story written mainly to entertain is ______.", "options": ["expository", "persuasive", "narrative", "descriptive"], "answer": 2, "exp": "Narrative writing tells a story and is meant to entertain."}, {"id": 19, "subject": "English", "q": "Which is a homophone of \"right\"?", "options": ["write", "wrote", "writ", "rite"], "answer": 0, "exp": "\"Right\" and \"right\"-sounding words; among the choices, \"write\" is a homophone (also \"rite\")."}, {"id": 20, "subject": "English", "q": "What does the idiom \"break the ice\" mean?", "options": ["to start a conversation", "to cause trouble", "to ruin plans", "to be cold"], "answer": 0, "exp": "To 'break the ice' is to ease initial awkwardness and begin a conversation."}, {"id": 21, "subject": "English", "q": "Which word is an abstract noun?", "options": ["table", "courage", "teacher", "city"], "answer": 1, "exp": "\"Courage\" names a quality or concept, not something physical, so it is abstract."}, {"id": 22, "subject": "English", "q": "The main idea of a paragraph is usually found in the ______.", "options": ["topic sentence", "concluding sentence", "transitional word", "supporting detail"], "answer": 0, "exp": "The topic sentence states the main idea, often at the beginning of a paragraph."}, {"id": 23, "subject": "English", "q": "Choose the word that is an adverb of time.", "options": ["happily", "yesterday", "huge", "quickly"], "answer": 1, "exp": "Adverbs of time tell when; 'yesterday' is an adverb of time."}, {"id": 24, "subject": "English", "q": "Which sentence has a dangling modifier?", "options": ["Running fast, I caught the bus.", "Having finished the test, she left the room.", "Driving to Manila, the car broke down.", "Exhausted, he slept early."], "answer": 2, "exp": "The car cannot drive to Manila by itself; the modifier has no clear subject."}, {"id": 25, "subject": "English", "q": "Identify the subject in: \"The colorful butterflies fluttered in the garden.\"", "options": ["garden", "fluttered", "butterflies", "colorful"], "answer": 2, "exp": "\"Butterflies\" is the noun the sentence is about — the subject."}, {"id": 26, "subject": "English", "q": "Which is the predicate of \"The diligent students reviewed their lessons\"?", "options": ["The diligent students", "students", "reviewed their lessons", "their lessons"], "answer": 2, "exp": "The predicate is what is said about the subject: 'reviewed their lessons.'"}, {"id": 27, "subject": "English", "q": "What is the connotation of the word \"home\" if it implies warmth and belonging?", "options": ["neutral", "positive", "negative", "factual"], "answer": 1, "exp": "Words carry emotional associations; 'home' often carries a warm, positive connotation."}, {"id": 28, "subject": "English", "q": "Which is an interrogative sentence?", "options": ["Close the door.", "Where did you go?", "She sings well.", "What a lovely day!"], "answer": 1, "exp": "An interrogative sentence asks a question, ending with a question mark."}, {"id": 29, "subject": "English", "q": "A comma is correctly used in which sentence?", "options": ["The dog barked loudly and, ran away.", "After the rain, the street shone brightly.", "She ate, rice and fish.", "He was, happy."], "answer": 1, "exp": "A comma follows an introductory dependent clause ('After the rain,')."}, {"id": 30, "subject": "English", "q": "Choose the correct spelling.", "options": ["necessary", "neccessary", "necessery", "necesary"], "answer": 0, "exp": "\"Necessary\" has one 'c' and two 's's."}, {"id": 31, "subject": "Filipino", "q": "Ano ang uring ito ng pangngalan na tumutukoy sa pangalan ng tiyak na tao, lugar, o bagay?", "options": ["Pambalana", "Pantangi", "Pamilang", "Payak"], "answer": 1, "exp": "Ang pantangi ay tumutukoy sa tiyak na pangalan (isinusulat nang malaki ang unang titik)."}, {"id": 32, "subject": "Filipino", "q": "Ano ang kasalungat ng salitang \"masipag\"?", "options": ["masigla", "tamad", "malakas", "maayos"], "answer": 1, "exp": "Ang kasalungat (antonym) ng masipag ay tamad."}, {"id": 33, "subject": "Filipino", "q": "Sa pangungusap na \"Ang batang lalaki ay tumatakbo,\" ano ang pang-uri?", "options": ["batang", "lalaki", "tumatakbo", "ay"], "answer": 0, "exp": "Ang 'batang' ay naglalarawan sa pangngalang 'lalaki,' kaya ito ay pang-uri."}, {"id": 34, "subject": "Filipino", "q": "Ano ang tawag sa salitang sumasagot sa tanong na \"paano\" o \"kailan\" para sa pandiwa?", "options": ["pang-abay", "pang-uri", "pangngalan", "panghalip"], "answer": 0, "exp": "Ang pang-abay ay naglalarawan sa pandiwa/panaguri."}, {"id": 35, "subject": "Filipino", "q": "Kilala bilang \"Ama ng Panitikang Tagalog\" na sumulat ng Noli Me Tangere?", "options": ["Jose Rizal", "Francisco Balagtas", "Andres Bonifacio", "Emilio Jacinto"], "answer": 1, "exp": "Si Francisco Balagtas (Balagtas) ang itinuturing na Ama ng Panitikang Tagalog."}, {"id": 36, "subject": "Filipino", "q": "Anong uri ng akda ang \"Ibong Adarna\"?", "options": ["Epiko", "Awit", "Korido", "Sanaysay"], "answer": 2, "exp": "Ang Ibong Adarna ay isang korido (may sukat at tugma sa 8 pantig)."}, {"id": 37, "subject": "Filipino", "q": "Ano ang kahulugan ng \"Noli Me Tangere\" ayon sa salin?", "options": ["Huwag mo akong salingin", "Huwag mo akong hawakan", "Huwag mo akong saktan", "Huwag mo akong kalimutan"], "answer": 1, "exp": "Ang Noli Me Tangere ay nangangahulugang 'Huwag mo akong hawakan/salingin' (Touch Me Not)."}, {"id": 38, "subject": "Filipino", "q": "Alin ang wastong baybay ng salita?", "options": ["kumustahin", "kumusta-hin", "kumustahin", "kumustáhin"], "answer": 0, "exp": "Ang wastong baybay ng pandiwa ay 'kumustahin.'"}, {"id": 39, "subject": "Filipino", "q": "Ano ang panghalip na pamatlig ng \"ito\" sa maramihan?", "options": ["dito", "ito", "mga ito", "iyan"], "answer": 2, "exp": "Ang pamatlig na 'ito' sa maramihan ay 'mga ito.'"}, {"id": 40, "subject": "Filipino", "q": "Sino ang sumulat ng \"Florante at Laura\"?", "options": ["Jose Rizal", "Francisco Balagtas", "Claro M. Recto", "Lope K. Santos"], "answer": 1, "exp": "Ang Florante at Laura ay isinulat ni Francisco Balagtas."}, {"id": 41, "subject": "Filipino", "q": "Ano ang tawag sa elemento ng maikling kuwento na tumutukoy sa pagkakasunod-sunod ng mga pangyayari?", "options": ["Tagpuan", "Banghay", "Tauhan", "Tema"], "answer": 1, "exp": "Ang banghay o balangkas ay ang pagkakasunod-sunod ng mga pangyayari sa isang kuwento."}, {"id": 42, "subject": "Filipino", "q": "Anong panahunan ng pandiwa ang \"kumakain\"?", "options": ["Nagaganap", "Naganap", "Magaganap", "Pangkasalukuyan"], "answer": 0, "exp": "Ang salitang-ugat na may reduplikasyon sa gitna (kumakain) ay panahong nagaganap."}, {"id": 43, "subject": "Filipino", "q": "Ibig sabihin ng idyomang \"nagtaingang-kawali\"?", "options": ["Nagulat", "Nagmagandang-loob", "Naging bingi/nagkunwaring hindi narinig", "Nagpakabait"], "answer": 2, "exp": "Ang 'nagtaingang-kawali' ay nangangahulugang nagkunwaring walang narinig."}, {"id": 44, "subject": "Filipino", "q": "Sa \"Mahal kita,\" ano ang tuwirang layon?", "options": ["Mahal", "kita", "ako", "tayo"], "answer": 1, "exp": "Sa 'Mahal kita,' ang 'kita' ay panghalip na bumubuo ng tuwirang layon."}, {"id": 45, "subject": "Filipino", "q": "Anong uri ng pangungusap ang \"Halika na!\"?", "options": ["Padamdam", "Pasaklaw", "Pakiusap", "Patanong"], "answer": 2, "exp": "Ang pakiusap ay humihingi o nag-uutos nang mahinahon; 'Halika na!' ay pakiusap."}, {"id": 46, "subject": "Filipino", "q": "Ano ang tawag sa pinakamaliit na yunit ng tunog sa isang salita?", "options": ["Ponema", "Pantomino", "Pantig", "Pangungusap"], "answer": 0, "exp": "Ang ponema ang pinakamaliit na yunit ng tunog na nagbabago ng kahulugan."}, {"id": 47, "subject": "Filipino", "q": "Ibig sabihin ng \"bihasa\"?", "options": ["bago", "sanay", "tamad", "marunong"], "answer": 1, "exp": "Ang 'bihasa' ay nangangahulugang sanay o eksperto sa isang gawain."}, {"id": 48, "subject": "Filipino", "q": "Sino ang itinuturing na \"Pambansang Bayani\" ng Pilipinas?", "options": ["Andres Bonifacio", "Jose Rizal", "Emilio Aguinaldo", "Antonio Luna"], "answer": 1, "exp": "Si Jose Rizal ang itinuturing na pambansang bayani ng Pilipinas."}, {"id": 49, "subject": "Filipino", "q": "Alin ang tamang tamabay (spacing/baybay) ng \"barangay\"?", "options": ["barangay", "bahargay", "barangai", "baranghi"], "answer": 0, "exp": "Ang wastong baybay ay 'barangay.'"}, {"id": 50, "subject": "Filipino", "q": "Anong uri ng akdang pampanitikan ang naglalahad ng mga kaisipan tungkol sa lipunan?", "options": ["Talumpati", "Sanaysay", "Tula", "Awit"], "answer": 1, "exp": "Ang sanaysay ay akda na naglalahad ng mga pananaw o kaisipan."}, {"id": 51, "subject": "Filipino", "q": "Ibig sabihin ng \"malawak\" sa konteksto ng \"malawak ang kaniyang pang-unawa\"?", "options": ["mababa", "maliit", "marami at masagana", "makipot"], "answer": 2, "exp": "Sa konteksto ng pag-iisip, ang 'malawak' ay tumutukoy sa masagana o malalim na pang-unawa."}, {"id": 52, "subject": "Filipino", "q": "Anong taon inilimbag ang unang edisyon ng \"Noli Me Tangere\"?", "options": ["1878", "1887", "1896", "1900"], "answer": 1, "exp": "Inilimbag ang Noli Me Tangere noong 1887 sa Berlin, Alemanya."}, {"id": 53, "subject": "Filipino", "q": "Ano ang simuno sa pangungusap na \"Ang mga mag-aaral ay nag-review\"?", "options": ["mga mag-aaral", "nag-review", "ay", "Ang"], "answer": 0, "exp": "Ang 'Ang mga mag-aaral' ang paksa o simuno ng pangungusap."}, {"id": 54, "subject": "Filipino", "q": "Ano ang kasingkahulugan ng \"kisame\"?", "options": ["sahig", "dingding", "bubong", "pintuan"], "answer": 2, "exp": "Ang kisame ay ang panloob na bubong; kasingkahulugan nito ang 'bubong.'"}, {"id": 55, "subject": "Filipino", "q": "Sa tula, ano ang tawag sa bilang ng pantig sa bawat taludtod?", "options": ["Tugma", "Sukat", "Talinghaga", "Indayog"], "answer": 1, "exp": "Ang sukat ay ang bilang ng pantig sa bawat taludtod ng tula."}, {"id": 56, "subject": "Mathematics", "q": "What is 15% of 200?", "options": ["20", "30", "35", "40"], "answer": 1, "exp": "0.15 × 200 = 30."}, {"id": 57, "subject": "Mathematics", "q": "Solve: 3(x − 4) = 21.", "options": ["x = 3", "x = 9", "x = 11", "x = 17"], "answer": 2, "exp": "3x − 12 = 21 → 3x = 33 → x = 11."}, {"id": 58, "subject": "Mathematics", "q": "What is the value of 2³ + 4²?", "options": ["16", "24", "32", "14"], "answer": 1, "exp": "8 + 16 = 24."}, {"id": 59, "subject": "Mathematics", "q": "What is the sum of the measures of the interior angles of a triangle?", "options": ["90°", "180°", "270°", "360°"], "answer": 1, "exp": "The interior angles of any triangle sum to 180°."}, {"id": 60, "subject": "Mathematics", "q": "Simplify: 5/8 ÷ 5/4.", "options": ["1/2", "2/1", "1/4", "5/2"], "answer": 0, "exp": "5/8 × 4/5 = 20/40 = 1/2."}, {"id": 61, "subject": "Mathematics", "q": "What is the area of a rectangle with length 12 cm and width 5 cm?", "options": ["17 cm²", "30 cm²", "60 cm²", "120 cm²"], "answer": 2, "exp": "Area = length × width = 12 × 5 = 60 cm²."}, {"id": 62, "subject": "Mathematics", "q": "Which is the greatest common factor (GCF) of 12 and 18?", "options": ["2", "3", "6", "9"], "answer": 2, "exp": "The largest number dividing both 12 and 18 is 6."}, {"id": 63, "subject": "Mathematics", "q": "If a number is divided by 3 and the result is 15, choose the correct equation.", "options": ["x/3 = 15", "3x = 15", "x + 3 = 15", "x − 3 = 15"], "answer": 0, "exp": "\"A number divided by 3\" is x/3, equal to 15."}, {"id": 64, "subject": "Mathematics", "q": "What is the perimeter of a square with side length 7 m?", "options": ["14 m", "28 m", "49 m", "35 m"], "answer": 1, "exp": "Perimeter = 4 × side = 4 × 7 = 28 m."}, {"id": 65, "subject": "Mathematics", "q": "Convert 0.75 to a fraction in lowest terms.", "options": ["3/4", "75/100", "7/5", "1/4"], "answer": 0, "exp": "0.75 = 75/100 = 3/4."}, {"id": 66, "subject": "Mathematics", "q": "What is the product of 8 and 12?", "options": ["20", "84", "96", "108"], "answer": 2, "exp": "8 × 12 = 96."}, {"id": 67, "subject": "Mathematics", "q": "Solve for x: 2x + 5 = 17.", "options": ["x = 4", "x = 6", "x = 11", "x = 22"], "answer": 1, "exp": "2x = 12 → x = 6."}, {"id": 68, "subject": "Mathematics", "q": "What is the mean of the numbers 4, 8, 12, 16?", "options": ["8", "10", "12", "16"], "answer": 1, "exp": "(4+8+12+16)/4 = 40/4 = 10."}, {"id": 69, "subject": "Mathematics", "q": "What is 50% of 80?", "options": ["20", "30", "40", "50"], "answer": 2, "exp": "0.50 × 80 = 40."}, {"id": 70, "subject": "Mathematics", "q": "Which is the least common multiple (LCM) of 4 and 6?", "options": ["10", "12", "24", "8"], "answer": 1, "exp": "The smallest number divisible by both 4 and 6 is 12."}, {"id": 71, "subject": "Mathematics", "q": "A triangle has angles 50° and 60°. What is the third angle?", "options": ["50°", "60°", "70°", "80°"], "answer": 2, "exp": "180° − (50+60) = 70°."}, {"id": 72, "subject": "Mathematics", "q": "What is √144?", "options": ["10", "11", "12", "14"], "answer": 2, "exp": "12 × 12 = 144, so the square root of 144 is 12."}, {"id": 73, "subject": "Mathematics", "q": "Simplify: −3 + (−4).", "options": ["7", "−7", "−1", "1"], "answer": 1, "exp": "Adding two negatives: −3 + (−4) = −7."}, {"id": 74, "subject": "Mathematics", "q": "What is the value of 10³?", "options": ["100", "1000", "10000", "30"], "answer": 1, "exp": "10³ = 10 × 10 × 10 = 1000."}, {"id": 75, "subject": "Mathematics", "q": "What is the distance around a circle called?", "options": ["Area", "Diameter", "Circumference", "Radius"], "answer": 2, "exp": "The distance around a circle is its circumference."}, {"id": 76, "subject": "Mathematics", "q": "What is 3/4 of 40?", "options": ["20", "25", "30", "35"], "answer": 2, "exp": "(3/4) × 40 = 30."}, {"id": 77, "subject": "Mathematics", "q": "A shirt costs 250 pesos and is on a 20% discount. What is the new price?", "options": ["50 pesos", "200 pesos", "210 pesos", "230 pesos"], "answer": 1, "exp": "Discount = 0.20 × 250 = 50; new price = 250 − 50 = 200."}, {"id": 78, "subject": "Mathematics", "q": "What is the value of 4! (4 factorial)?", "options": ["12", "16", "24", "48"], "answer": 2, "exp": "4! = 4 × 3 × 2 × 1 = 24."}, {"id": 79, "subject": "Mathematics", "q": "Which of these is a prime number?", "options": ["21", "29", "33", "39"], "answer": 1, "exp": "29 has no divisors other than 1 and itself, so it is prime."}, {"id": 80, "subject": "Mathematics", "q": "What is 2.5×5?", "options": ["10.5", "12.0", "12.5", "125"], "answer": 2, "exp": "2.5 × 5 = 12.5."}, {"id": 81, "subject": "Science", "q": "Which organelle is called the powerhouse of the cell?", "options": ["Nucleus", "Mitochondrion", "Ribosome", "Golgi body"], "answer": 1, "exp": "Mitochondria produce ATP, the cell's energy, hence 'powerhouse.'"}, {"id": 82, "subject": "Science", "q": "What is the chemical symbol for water?", "options": ["HO", "H2O", "O2", "H2"], "answer": 1, "exp": "Water is composed of two hydrogen atoms and one oxygen atom: H₂O."}, {"id": 83, "subject": "Science", "q": "Which planet is known as the Red Planet?", "options": ["Venus", "Mars", "Jupiter", "Saturn"], "answer": 1, "exp": "Mars appears red because of iron oxide (rust) on its surface."}, {"id": 84, "subject": "Science", "q": "What is the process by which plants make food using sunlight?", "options": ["Respiration", "Photosynthesis", "Transpiration", "Fermentation"], "answer": 1, "exp": "Plants convert light, water, and CO₂ into glucose via photosynthesis."}, {"id": 85, "subject": "Science", "q": "What is the basic unit of life?", "options": ["Atom", "Cell", "Tissue", "Organ"], "answer": 1, "exp": "The cell is the smallest basic unit that can carry out all life processes."}, {"id": 86, "subject": "Science", "q": "Which force pulls objects toward the center of the Earth?", "options": ["Friction", "Magnetism", "Gravity", "Tension"], "answer": 2, "exp": "Gravity attracts objects toward the center of the Earth."}, {"id": 87, "subject": "Science", "q": "What is the boiling point of water in Celsius at sea level?", "options": ["90°C", "100°C", "110°C", "120°C"], "answer": 1, "exp": "At standard atmospheric pressure, water boils at 100°C."}, {"id": 88, "subject": "Science", "q": "Which organ pumps blood around the body?", "options": ["Liver", "Lungs", "Heart", "Kidney"], "answer": 2, "exp": "The heart is a muscular pump that circulates blood."}, {"id": 89, "subject": "Science", "q": "What gas do humans inhale that is essential for respiration?", "options": ["Carbon dioxide", "Oxygen", "Nitrogen", "Hydrogen"], "answer": 1, "exp": "Oxygen is required for cellular respiration in the human body."}, {"id": 90, "subject": "Science", "q": "Which of the following is a renewable source of energy?", "options": ["Coal", "Oil", "Solar", "Natural gas"], "answer": 2, "exp": "Solar energy is replenished naturally, making it renewable."}, {"id": 91, "subject": "Science", "q": "What is the process of changing water into vapor called?", "options": ["Condensation", "Evaporation", "Sublimation", "Freezing"], "answer": 1, "exp": "Evaporation is the change of a liquid to a gas (vapor)."}, {"id": 92, "subject": "Science", "q": "Which part of the plant absorbs water and minerals from the soil?", "options": ["Leaves", "Stem", "Roots", "Flowers"], "answer": 2, "exp": "Roots absorb water and dissolved minerals from the soil."}, {"id": 93, "subject": "Science", "q": "What is the chemical formula for table salt?", "options": ["NaCl", "KCl", "H2O", "CO2"], "answer": 0, "exp": "Table salt is sodium chloride, NaCl."}, {"id": 94, "subject": "Science", "q": "What is the largest planet in the Solar System?", "options": ["Earth", "Jupiter", "Saturn", "Neptune"], "answer": 1, "exp": "Jupiter is the largest planet in our Solar System."}, {"id": 95, "subject": "Science", "q": "Which blood cells help fight infection?", "options": ["Red blood cells", "White blood cells", "Platelets", "Plasma"], "answer": 1, "exp": "White blood cells (leukocytes) are part of the immune system."}, {"id": 96, "subject": "Science", "q": "What is the process of plants losing water vapor through their leaves?", "options": ["Photosynthesis", "Respiration", "Transpiration", "Digestion"], "answer": 2, "exp": "Transpiration is the loss of water vapor through stomata in leaves."}, {"id": 97, "subject": "Science", "q": "Which type of rock is formed from cooled magma or lava?", "options": ["Sedimentary", "Igneous", "Metamorphic", "Fossil"], "answer": 1, "exp": "Igneous rock forms from the cooling and solidification of magma/lava."}, {"id": 98, "subject": "Science", "q": "What is the SI unit of length?", "options": ["Gram", "Meter", "Liter", "Second"], "answer": 1, "exp": "The meter is the SI base unit of length."}, {"id": 99, "subject": "Science", "q": "Which organelle contains the genetic material (DNA) of a eukaryotic cell?", "options": ["Nucleus", "Mitochondrion", "Chloroplast", "Ribosome"], "answer": 0, "exp": "The nucleus houses the cell's DNA."}, {"id": 100, "subject": "Science", "q": "What is the term for an animal that eats only plants?", "options": ["Carnivore", "Herbivore", "Omnivore", "Insectivore"], "answer": 1, "exp": "A herbivore feeds mainly on plants."}, {"id": 101, "subject": "Science", "q": "Which of these is a vector quantity because it has both magnitude and direction?", "options": ["Mass", "Speed", "Velocity", "Time"], "answer": 2, "exp": "Velocity includes direction, so it is a vector quantity."}, {"id": 102, "subject": "Science", "q": "What is the most abundant element in the Earth's atmosphere?", "options": ["Oxygen", "Nitrogen", "Carbon dioxide", "Argon"], "answer": 1, "exp": "Nitrogen makes up about 78% of the atmosphere."}, {"id": 103, "subject": "Science", "q": "What instrument is used to measure temperature?", "options": ["Barometer", "Thermometer", "Hygrometer", "Anemometer"], "answer": 1, "exp": "A thermometer measures temperature."}, {"id": 104, "subject": "Science", "q": "Which system is responsible for breathing in humans?", "options": ["Digestive", "Circulatory", "Respiratory", "Nervous"], "answer": 2, "exp": "The respiratory system handles gas exchange (breathing)."}, {"id": 105, "subject": "Science", "q": "What is the process of a liquid changing into a solid called?", "options": ["Melting", "Freezing", "Boiling", "Sublimation"], "answer": 1, "exp": "Freezing is the change from liquid to solid."}, {"id": 106, "subject": "Science", "q": "Which is the largest internal organ of the human body?", "options": ["Heart", "Brain", "Liver", "Lungs"], "answer": 2, "exp": "The liver is the largest internal organ in the human body."}, {"id": 107, "subject": "Science", "q": "What causes the phases of the Moon?", "options": ["Earth's rotation", "Moon's orbit around Earth", "Sun's rays on Earth", "Earth's tilt"], "answer": 1, "exp": "As the Moon orbits Earth, different portions of its illuminated side are visible."}, {"id": 108, "subject": "Science", "q": "What is the chemical symbol for gold?", "options": ["Go", "Gd", "Au", "Ag"], "answer": 2, "exp": "Au is the symbol for gold, from the Latin 'aurum.'"}, {"id": 109, "subject": "Science", "q": "Which vitamin is produced by the skin when exposed to sunlight?", "options": ["Vitamin A", "Vitamin B12", "Vitamin C", "Vitamin D"], "answer": 3, "exp": "Sunlight enables the skin to synthesize vitamin D."}, {"id": 110, "subject": "Science", "q": "What is the smallest unit of a chemical element that retains its properties?", "options": ["Molecule", "Atom", "Compound", "Mixture"], "answer": 1, "exp": "The atom is the smallest unit of an element retaining its properties."}, {"id": 111, "subject": "Science", "q": "In a food chain, which are the producers?", "options": ["Carnivores", "Herbivores", "Plants", "Fungi"], "answer": 2, "exp": "Plants (and some algae) produce their own food, so they are producers."}, {"id": 112, "subject": "Science", "q": "What is sound produced by?", "options": ["Light", "Vibration", "Heat", "Pressure"], "answer": 1, "exp": "Sound is produced by vibrations that travel as waves."}, {"id": 113, "subject": "Science", "q": "Which is the closest planet to the Sun?", "options": ["Earth", "Venus", "Mercury", "Mars"], "answer": 2, "exp": "Mercury is the planet closest to the Sun."}, {"id": 114, "subject": "Science", "q": "What is the pH of a neutral solution?", "options": ["0", "7", "14", "5"], "answer": 1, "exp": "A pH of 7 is neutral (e.g., pure water)."}, {"id": 115, "subject": "Science", "q": "Which blood component helps blood to clot?", "options": ["Red blood cells", "White blood cells", "Platelets", "Serum"], "answer": 2, "exp": "Platelets stick together to form clots and stop bleeding."}, {"id": 116, "subject": "Social Science", "q": "Who is known as the first President of the Philippines?", "options": ["Jose Rizal", "Emilio Aguinaldo", "Manuel Quezon", "Andres Bonifacio"], "answer": 1, "exp": "Emilio Aguinaldo became the first President of the Philippine Republic in 1899."}, {"id": 117, "subject": "Social Science", "q": "How many continents are there on Earth?", "options": ["5", "6", "7", "8"], "answer": 2, "exp": "There are seven continents: Africa, Antarctica, Asia, Europe, North America, Oceania, South America."}, {"id": 118, "subject": "Social Science", "q": "Which branch of the Philippine government makes laws?", "options": ["Executive", "Legislative", "Judicial", "Barangay"], "answer": 1, "exp": "The Legislative branch (Congress) makes and passes laws."}, {"id": 119, "subject": "Social Science", "q": "What is the capital city of the Philippines?", "options": ["Quezon City", "Manila", "Cebu", "Davao"], "answer": 1, "exp": "Manila is the capital of the Philippines."}, {"id": 120, "subject": "Social Science", "q": "What is the basic unit of currency in the Philippines?", "options": ["Dollar", "Peso", "Yen", "Euro"], "answer": 1, "exp": "The Philippine peso is the country's currency."}, {"id": 121, "subject": "Social Science", "q": "The document that states the rights and duties of citizens is the ______.", "options": ["Constitution", "Treaty", "Charter", "Manifesto"], "answer": 0, "exp": "The Constitution is the supreme law that defines rights and the structure of government."}, {"id": 122, "subject": "Social Science", "q": "Who wrote the Declaration of Philippine Independence in 1898?", "options": ["Jose Rizal", "Emilio Aguinaldo", "Andres Bonifacio", "Ramon Magsaysay"], "answer": 1, "exp": "Aguinaldo proclaimed Philippine independence on June 12, 1898."}, {"id": 123, "subject": "Social Science", "q": "Which is the largest island in the Philippines by area?", "options": ["Luzon", "Mindanao", "Visayas", "Palawan"], "answer": 0, "exp": "Luzon is the largest island in the Philippines in both area and population."}, {"id": 124, "subject": "Social Science", "q": "What is the study of the production, distribution, and consumption of goods and services?", "options": ["History", "Economics", "Geography", "Sociology"], "answer": 1, "exp": "Economics studies how societies allocate scarce resources."}, {"id": 125, "subject": "Social Science", "q": "Which Philippine region borders the waters of the South China Sea on the west?", "options": ["Mindanao", "Luzon", "Visayas", "Bicol"], "answer": 1, "exp": "Luzon lies along the western seaboard fronting the South China Sea (West Philippine Sea)."}, {"id": 126, "subject": "Social Science", "q": "The principle that all Filipinos are equal before the law is guaranteed by ______.", "options": ["Due process", "Equal protection", "Habeas corpus", "Writ of amparo"], "answer": 1, "exp": "The equal protection clause ensures that all persons under the law are treated the same."}, {"id": 127, "subject": "Social Science", "q": "Which international organization aims to promote world peace and security?", "options": ["UN", "ASEAN", "EU", "NATO"], "answer": 0, "exp": "The United Nations (UN) promotes international peace and cooperation."}, {"id": 128, "subject": "Social Science", "q": "What is the term for the movement of people from rural to urban areas?", "options": ["Urbanization", "Industrialization", "Globalization", "Migration"], "answer": 0, "exp": "Urbanization is the shift of populations from rural to urban centers."}, {"id": 129, "subject": "Social Science", "q": "Who is the chief executive of a province?", "options": ["Mayor", "Governor", "Senator", "Judge"], "answer": 1, "exp": "Each province is headed by a provincial governor."}, {"id": 130, "subject": "Social Science", "q": "The 1987 Philippine Constitution has how many articles?", "options": ["14", "16", "18", "20"], "answer": 2, "exp": "The 1987 Constitution contains 18 articles."}, {"id": 131, "subject": "Social Science", "q": "Which statement about volcanoes is correct regarding the Philippine archipelago?", "options": ["Philippines has no active volcanoes", "The Philippines lies inside the Pacific Ring of Fire", "Volcanoes are all dormant", "Mt. Pinatubo is in Mindanao"], "answer": 1, "exp": "The Philippines is part of the Pacific Ring of Fire, hence its many active volcanoes."}, {"id": 132, "subject": "Social Science", "q": "What is the highest peak in the Philippines?", "options": ["Mt. Pulag", "Mt. Apo", "Mt. Pinatubo", "Mt. Makiling"], "answer": 1, "exp": "Mt. Apo in Davao is the highest mountain in the Philippines."}, {"id": 133, "subject": "Social Science", "q": "Which body of water separates the Philippines from Taiwan?", "options": ["Bashi Channel", "Celebes Sea", "Sulu Sea", "Mindoro Strait"], "answer": 0, "exp": "The Bashi Channel lies between Taiwan and the Philippines."}, {"id": 134, "subject": "Social Science", "q": "The study of past events is called ______.", "options": ["Geography", "History", "Anthropology", "Archaeology"], "answer": 1, "exp": "History is the study of past events and their records."}, {"id": 135, "subject": "Social Science", "q": "What is the smallest local government unit in the Philippines?", "options": ["Province", "City", "Municipality", "Barangay"], "answer": 3, "exp": "The barangay is the smallest political unit under the Local Government Code."}, {"id": 136, "subject": "Social Science", "q": "ASEAN stands for ______.", "options": ["Association of Southeast Asian Nations", "Alliance of South East Asia Nations", "Association of South East Asian Network", "Alliance of Sovereign East Asian Nations"], "answer": 0, "exp": "ASEAN is the Association of Southeast Asian Nations."}, {"id": 137, "subject": "Social Science", "q": "The President serves as the head of which branch of the Philippine government?", "options": ["Legislative", "Executive", "Judicial", "Judiciary"], "answer": 1, "exp": "The President heads the Executive branch of government."}, {"id": 138, "subject": "Social Science", "q": "Which of these is the most populous country in the world?", "options": ["China", "India", "United States", "Indonesia"], "answer": 1, "exp": "India is currently the world's most populous country."}, {"id": 139, "subject": "Social Science", "q": "What is the term for the money collected by the government from citizens to fund public services?", "options": ["Budget", "Tax", "Loan", "Subsidy"], "answer": 1, "exp": "Taxes are mandatory contributions used to fund government services."}, {"id": 140, "subject": "Social Science", "q": "President Corazon Aquino, the first woman president of the Philippines, took office in ______.", "options": ["1965", "1972", "1986", "1992"], "answer": 2, "exp": "Corazon Aquino became president after the 1986 EDSA People Power Revolution."}, {"id": 141, "subject": "Social Science", "q": "Which continent is known as the birthplace of democracy (ancient Greece)?", "options": ["Africa", "Europe", "Asia", "Australia"], "answer": 1, "exp": "Ancient Greece, in Europe, is credited as democracy's birthplace."}, {"id": 142, "subject": "Social Science", "q": "What does the term \"GDP\" stand for?", "options": ["Global Domestic Product", "Gross Domestic Product", "General Development Plan", "Gross Development Program"], "answer": 1, "exp": "GDP is the total value of goods and services produced in a country."}, {"id": 143, "subject": "Social Science", "q": "Which document recognized human rights for all people within a nation?", "options": ["UN Charter", "Universal Declaration of Human Rights", "Geneva Convention", "Magna Carta"], "answer": 1, "exp": "The UDHR sets the fundamental rights of all human beings."}, {"id": 144, "subject": "Social Science", "q": "The tropical climate of the Philippines is affected by ______.", "options": ["the equator and monsoon winds", "the poles", "the desert region", "the polar jet stream"], "answer": 0, "exp": "Its proximity to the equator and monsoon winds shape its tropical climate."}, {"id": 145, "subject": "Social Science", "q": "Who is known as the \"Great Plebeian\" and founder of the Katipunan?", "options": ["Jose Rizal", "Andres Bonifacio", "Emilio Aguinaldo", "Lapu-Lapu"], "answer": 1, "exp": "Bonifacio founded the Katipunan to fight for Philippine independence."}, {"id": 146, "subject": "Social Science", "q": "Which is the national language of the Philippines?", "options": ["English", "Filipino", "Cebuano", "Ilocano"], "answer": 1, "exp": "Filipino is the national language of the Philippines."}, {"id": 147, "subject": "Social Science", "q": "Which government agency is responsible for processing taxes in the Philippines?", "options": ["BIR", "BSP", "DOLE", "DTI"], "answer": 0, "exp": "The Bureau of Internal Revenue (BIR) collects national taxes."}, {"id": 148, "subject": "Social Science", "q": "The Great Wall, the Forbidden City, and the Terracotta Army belong to which country?", "options": ["Japan", "China", "India", "Thailand"], "answer": 1, "exp": "These landmarks are found in China."}, {"id": 149, "subject": "Social Science", "q": "What term describes the exchange of goods and services between countries?", "options": ["Trade", "Tourism", "Taxation", "Production"], "answer": 0, "exp": "International trade is the exchange of goods/services across borders."}, {"id": 150, "subject": "Social Science", "q": "The 1986 peaceful revolution that restored democracy in the Philippines is called ______.", "options": ["EDSA People Power Revolution", "Philippine Revolution", "Martial Law", "War on Drugs"], "answer": 0, "exp": "The EDSA People Power Revolution in February 1986 peacefully ended the Marcos regime."}];
+const TOTAL = QUESTIONS.length;
+const LETTERS = ["A","B","C","D"];
+const SUBJCOL = {
+  "English":"#4f46e5","Filipino":"#b45309","Mathematics":"#0f766e",
+  "Science":"#7c3aed","Social Science":"#be123c"
+};
+
+let answers = new Array(TOTAL).fill(null);
+let current = 0;
+let timer = 0, timerId = null, started = false;
+let filter = "all";
+
+function startExam(){
+  document.getElementById("landing").classList.add("hidden");
+  document.getElementById("exam").classList.remove("hidden");
+  buildPalette();
+  render();
+  if(!started){ started = true; timerId = setInterval(tick, 1000); }
+}
+function tick(){ timer++; const m=String(Math.floor(timer/60)).padStart(2,"0"), s=String(timer%60).padStart(2,"0"); document.getElementById("timer").textContent = m+":"+s; }
+
+function buildPalette(){
+  const g = document.getElementById("palette"); g.innerHTML="";
+  QUESTIONS.forEach((q,i)=>{
+    const c = document.createElement("button");
+    c.className="cell"; c.textContent=i+1; c.dataset.i=i;
+    c.onclick=()=>{ current=i; render(); };
+    g.appendChild(c);
+  });
+}
+
+function render(){
+  const q = QUESTIONS[current];
+  document.getElementById("qnum").textContent = current+1;
+  document.getElementById("qsubject").textContent = q.subject;
+  document.getElementById("qsubject").style.color = SUBJCOL[q.subject]||"var(--brand)";
+  document.getElementById("qtxt").textContent = q.q;
+
+  const box = document.getElementById("opts"); box.innerHTML="";
+  q.options.forEach((op,i)=>{
+    const o=document.createElement("div");
+    o.className="opt"+(answers[current]===i?" sel":""); o.dataset.i=i;
+    o.innerHTML = '<div class="key">'+LETTERS[i]+'</div><div class="txt"></div><div class="check">&#10003;</div>';
+    o.querySelector(".txt").textContent = op;
+    o.onclick = ()=>{ answers[current]=i; render(); };
+    box.appendChild(o);
+  });
+
+  document.getElementById("btnPrev").disabled = current===0;
+  document.getElementById("btnNext").textContent = current===TOTAL-1 ? "Finish" : "Next \u2192";
+
+  paletteCells();
+  updateProgress();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+function paletteCells(){
+  const cells=document.querySelectorAll("#palette .cell");
+  cells.forEach((c,i)=>{
+    c.classList.toggle("done", answers[i]!==null);
+    c.classList.toggle("cur", i===current);
+  });
+}
+function updateProgress(){
+  const done = answers.filter(a=>a!==null).length;
+  document.getElementById("progText").textContent = done+" of "+TOTAL+" answered";
+  const pct = Math.round(done/TOTAL*100);
+  document.getElementById("progPct").textContent = pct+"%";
+  document.getElementById("progBar").style.width = pct+"%";
+}
+
+function nextQ(){ if(current<TOTAL-1){ current++; render(); } else { confirmSubmit(); } }
+function prevQ(){ if(current>0){ current--; render(); } }
+
+function confirmSubmit(){
+  const done = answers.filter(a=>a!==null).length;
+  const msg = done < TOTAL
+    ? "You have answered "+done+" of "+TOTAL+" items. Unanswered items will be marked wrong. Submit anyway?"
+    : "You have answered all "+TOTAL+" items. Submit your exam now?";
+  showModal(msg, ()=>{ clearInterval(timerId); showResult(); });
+}
+
+function showModal(msg, onYes){
+  const overlay = document.getElementById("modal");
+  document.getElementById("modalMsg").textContent = msg;
+  overlay.classList.remove("hidden");
+  overlay.querySelector("#modalYes").onclick = ()=>{ overlay.classList.add("hidden"); onYes(); };
+  overlay.querySelector("#modalNo").onclick = ()=>{ overlay.classList.add("hidden"); };
+  overlay.addEventListener("click", function(ev){ if(ev.target===overlay){ overlay.classList.add("hidden"); } });
+}
+
+function compute(){
+  let correct=0, wrong=0, skip=0;
+  const bySub={};
+  QUESTIONS.forEach((q,i)=>{
+    const sub=q.subject;
+    if(!bySub[sub]) bySub[sub]={total:0,correct:0,wrong:0,skip:0};
+    bySub[sub].total++;
+    const a=answers[i];
+    if(a===null){ skip++; bySub[sub].skip++; }
+    else if(a===q.answer){ correct++; bySub[sub].correct++; }
+    else { wrong++; bySub[sub].wrong++; }
+  });
+  return {correct,wrong,skip,bySub};
+}
+
+function rating(pct){
+  if(pct>=90) return "Outstanding \u2014 LET-ready";
+  if(pct>=75) return "Very Good";
+  if(pct>=60) return "Good \u2014 Keep reviewing";
+  if(pct>=50) return "Fair \u2014 Needs more study";
+  return "Needs substantial review";
+}
+
+function showResult(){
+  document.getElementById("exam").classList.add("hidden");
+  document.getElementById("review").classList.add("hidden");
+  document.getElementById("result").classList.remove("hidden");
+
+  const {correct,wrong,skip,bySub} = compute();
+  const pct = Math.round(correct/TOTAL*100);
+  document.getElementById("scoreBig").textContent = correct;
+  document.getElementById("scorePct").textContent = pct+"%";
+  document.getElementById("rate").textContent = rating(pct);
+  document.getElementById("stCorrect").textContent = correct;
+  document.getElementById("stWrong").textContent = wrong;
+  document.getElementById("stSkip").textContent = skip;
+  document.getElementById("stTime").textContent = fmtTime(timer);
+
+  const sc = document.getElementById("subjectCards"); sc.innerHTML="";
+  Object.keys(bySub).forEach(sub=>{
+    const d=bySub[sub], p=Math.round(d.correct/d.total*100);
+    const el=document.createElement("div");
+    el.className="scard";
+    el.innerHTML = '<div class="name" style="color:'+(SUBJCOL[sub]||"#334155")+'">'+sub+'</div>'+
+      '<div class="sub">'+d.correct+'/'+d.total+' correct ('+p+'%)</div>'+
+      '<div class="mini"><span style="width:'+p+'%;background:'+(SUBJCOL[sub]||"var(--brand)")+'"></span></div>';
+    sc.appendChild(el);
+  });
+
+  document.getElementById("passNote").innerHTML = pct>=75
+    ? "\u2705 <b>Great job!</b> At or above 75%, you are in strong shape for the GenEd portion of the LET. Review your mistakes below."
+    : "\u26a0\ufe0f <b>Heads up:</b> A score below 75% hints you should revisit the subtopics you missed. Use the Review button to study the explanations.";
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function fmtTime(s){ const m=Math.floor(s/60), sec=s%60; return m+":"+String(sec).padStart(2,"0"); }
+
+function showReview(){
+  document.getElementById("result").classList.add("hidden");
+  document.getElementById("review").classList.remove("hidden");
+  setFilter("all");
+}
+function setFilter(f){
+  filter=f;
+  document.querySelectorAll(".fbtn").forEach(b=>{
+    if(b.textContent.trim()==="Back to Results") return;
+    b.classList.toggle("act", b.dataset.f===f);
+  });
+  const list=document.getElementById("reviewList"); list.innerHTML="";
+  QUESTIONS.forEach((q,i)=>{
+    const a=answers[i];
+    let cls="skip", label="Unanswered";
+    if(a!==null){ cls=(a===q.answer)?"right":"wrong"; label=cls==="right"?"Correct":"Wrong"; }
+    if(filter==="right"&&cls!=="right") return;
+    if(filter==="wrong"&&cls!=="wrong") return;
+    if(filter==="skip"&&cls!=="skip") return;
+    const el=document.createElement("div"); el.className="rq";
+    let optsHtml="";
+    q.options.forEach((op,k)=>{
+      const cc=(k===q.answer)?"correct":"";
+      const ww=(a!==null&&k===a&&a!==q.answer)?"wrong":"";
+      const sel=(a===k)?"sel":"";
+      const mark=(k===q.answer)?"&#10003;":(a===k?"\u2715":"");
+      optsHtml+='<div class="rline '+cc+' '+ww+' '+sel+'"><div class="mark">'+LETTERS[k]+'.</div><div>'+op+'</div>'+mark+'</div>';
+    });
+    el.innerHTML =
+      '<div class="rh"><span class="tag '+cls+'">'+label+'</span>'+
+      '<span class="subject">'+q.subject+'</span></div>'+
+      '<div class="q">'+i+'. '+q.q+'</div>'+optsHtml+
+      '<div class="exp"><b>Explanation:</b> '+q.exp+'</div>';
+    list.appendChild(el);
+  });
+  if(!list.childElementCount){ list.innerHTML='<p style="color:var(--muted)">No questions match this filter.</p>'; }
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function retake(){
+  answers = new Array(TOTAL).fill(null);
+  current=0; timer=0; filter="all";
+  clearInterval(timerId);
+  document.getElementById("review").classList.add("hidden");
+  document.getElementById("result").classList.add("hidden");
+  document.getElementById("landing").classList.remove("hidden");
+  document.getElementById("exam").classList.add("hidden");
+  started=false; timerId=null;
+  document.getElementById("timer").textContent="00:00";
+}
+</script>
+</body>
+</html>
