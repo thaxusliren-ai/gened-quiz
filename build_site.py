@@ -94,7 +94,6 @@ page = r"""<!DOCTYPE html>
   .btn-ghost:hover{background:#f8fafc;}
   .btn[disabled]{opacity:.5;cursor:not-allowed;}
   /* ---------- EXAM ---------- */
-  .exam{display:none;}
   .toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px;}
   .progress-wrap{flex:1;min-width:200px;}
   .progress-info{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:6px;font-weight:600;}
@@ -126,7 +125,6 @@ page = r"""<!DOCTYPE html>
   .legend i{display:inline-block;width:14px;height:14px;border-radius:4px;margin-right:6px;vertical-align:middle;}
   .submitrow{text-align:center;margin-top:20px;}
   /* ---------- RESULT ---------- */
-  .result{display:none;}
   .score-hero{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;border-radius:20px;padding:30px;text-align:center;box-shadow:0 20px 50px rgba(79,70,229,.32);}
   .score-hero .big{font-size:56px;font-weight:900;line-height:1;}
   .score-hero .pct{font-size:20px;font-weight:700;opacity:.92;}
@@ -145,7 +143,6 @@ page = r"""<!DOCTYPE html>
   .note{font-size:13px;color:#475569;background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:14px 0;text-align:left;}
   .actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:20px;}
   /* ---------- REVIEW ---------- */
-  .review{display:none;}
   .filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;}
   .fbtn{border:1px solid var(--line);background:#fff;padding:9px 16px;border-radius:999px;font-weight:700;font-size:14px;cursor:pointer;color:var(--muted);}
   .fbtn.act{background:var(--brand);color:#fff;border-color:var(--brand);}
@@ -223,7 +220,7 @@ page = r"""<!DOCTYPE html>
   </section>
 
   <!-- ============ EXAM ============ -->
-  <section class="exam" id="exam">
+  <section class="exam hidden" id="exam">
     <div class="toolbar">
       <div class="progress-wrap">
         <div class="progress-info"><span id="progText">0 of __TOTAL__ answered</span><span id="progPct">0%</span></div>
@@ -261,7 +258,7 @@ page = r"""<!DOCTYPE html>
   </section>
 
   <!-- ============ RESULT ============ -->
-  <section class="result" id="result">
+  <section class="result hidden" id="result">
     <div class="score-hero">
       <div style="font-size:14px;font-weight:700;letter-spacing:1px;text-transform:uppercase;opacity:.9;">Your Score</div>
       <div class="big" id="scoreBig">0</div>
@@ -285,7 +282,7 @@ page = r"""<!DOCTYPE html>
   </section>
 
   <!-- ============ REVIEW ============ -->
-  <section class="review" id="review">
+  <section class="review hidden" id="review">
     <h2 style="margin:0 0 16px;">Answer Review</h2>
     <div class="filters">
       <button class="fbtn act" data-f="all" onclick="setFilter('all')">All (__TOTAL__)</button>
